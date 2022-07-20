@@ -1,0 +1,34 @@
+﻿@model List<Movie>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Movies</h1>
+@{
+    if(Model.Count()!=0)
+    {
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col"> Movie name</th>
+                <th scope="col"> Genre</th>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach (var movie in Model)
+            {
+              <tr>
+                <th scope="row">@movie.Id</th>
+                <td><a href="Movies/View/@movie.Id">@movie.Name</a></td>
+                <td>@movie.Genre.Name </td>
+              </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <text>Nu au fost gasiti Movies</text>
+    }
+}

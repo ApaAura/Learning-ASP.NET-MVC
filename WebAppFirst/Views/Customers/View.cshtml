@@ -1,0 +1,20 @@
+﻿@model WebAppFirst.Models.Customer
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>@Model.Name</h1>
+<hr/>
+<ul>
+    <li>
+        <b>Membership Type:</b> @Model.MembershipType.Name
+    </li>
+    @if (@Model.BirthDate.HasValue)
+    {
+        <li>
+            <b>Birthdate:</b> @Model.BirthDate.Value.ToShortDateString()
+        </li>
+    }
+</ul>
+
+

@@ -1,0 +1,26 @@
+﻿@model WebAppFirst.ViewModels.RandomMovieViewModel
+@{
+    ViewData["Title"] = "Random";
+}
+
+@{
+    var className = Model.Customers.Count > 0 ? "popular" : null;
+}
+<h1 class ="@className">@Model.Movie.Name</h1>
+@if (Model.Customers.Count == 0)
+{
+    <text>No one has rented this movie before.</text>
+}
+else
+{
+    <ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>@customer.Name</li>
+    }
+    </ul>
+}
+@*
+    comment
+*@
+

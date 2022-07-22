@@ -60,8 +60,18 @@ namespace WebAppFirst.Controllers
             return View("MovieForm",viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genre = _context.Genre.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
             if (movie.Id == 0)
             {
                 movie.Added = DateTime.Now;
@@ -78,7 +88,6 @@ namespace WebAppFirst.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index","Movies");
         }
-
         public ViewResult Index()
         {
             var movies = _context.Movies.Include(c => c.Genre).ToList();
@@ -91,25 +100,11 @@ namespace WebAppFirst.Controllers
             {
                 return NotFound();
             }
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movies)
             {
-                Movie = movies,
                 Genre = _context.Genre.ToList()
             };
             return View("MovieForm", viewModel);
-        }
-        public ActionResult MovieFormViewModel(int id)
-        {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
-            if (movie==null)
-            {
-                return NotFound();
-            }
-            var viewModel = new MovieFormViewModel
-            {
-                Movie = movie
-            };
-            return View("MovieForm",viewModel);
         }
     }
 }

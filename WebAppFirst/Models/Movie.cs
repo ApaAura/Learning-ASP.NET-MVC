@@ -1,4 +1,5 @@
 ﻿using WebAppFirst.Models;
+
 namespace WebAppFirst.Models
 {
     public class Movie
